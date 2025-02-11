@@ -20,9 +20,13 @@ class ControllerFormPage {
 
     public static function updateActivity($id) {
         global $pdo;
-        header('Content-Type: application/json');
+
+        header('Access-Control-Allow-Origin: *'); 
+        header('Content-Type: application/json; charset=utf-8'); 
 
         $data = json_decode(file_get_contents('php://input'), true);
+
+        // echo json_encode($data);
         $stmt = $pdo->prepare('UPDATE activities SET name = :name, description = :description, image = :image, level_id = :level_id, coach_id = :coach_id , schedule_day = :schedule_day,
         schedule_time = :schedule_time, location_id = :location_id WHERE id = :id');
         $stmt->execute([
@@ -37,7 +41,7 @@ class ControllerFormPage {
             ':id' => $id
         ]);
 
-        echo json_encode(['success' => true, 'message' => 'Post-it mis à jour avec succès']);
+        // echo json_encode(['success' => true, 'message' => 'Post-it mis à jour avec succès']);
     }
 }
 

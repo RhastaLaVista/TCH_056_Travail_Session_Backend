@@ -12,21 +12,21 @@ get('/api/activities/random', function(){
     ControllerMainPage::getRandomActivities();
 });
 
-get('/api/activities', function(){
-    ControllerMainPage::getAllActivities();
-});
+// get('/api/activities', function(){
+//     ControllerMainPage::getAllActivities();
+// });
 
-get('/api/coaches', function(){
-    ControllerMainPage::getAllCoaches();
-});
+// get('/api/coaches', function(){
+//     ControllerMainPage::getAllCoaches();
+// });
 
-get('/api/activities/$id', function($id){
-    ControllerFormPage::getSpecificActivity($id);
-});
+// get('/api/activities/$id', function($id){
+//     ControllerFormPage::getSpecificActivity($id);
+// });
 
-get('/api/locations', function(){
-    ControllerFormPage::getAllLocations();
-});
+// get('/api/locations', function(){
+//     ControllerFormPage::getAllLocations();
+// });
 
 put('/api/activities/$id', function($id){
     ControllerFormPage::updateActivity($id);

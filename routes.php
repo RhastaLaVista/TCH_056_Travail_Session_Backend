@@ -13,7 +13,7 @@ get('/api/activities/random', function(){
 });
 
 get('/api/activities', function(){
-    ControllerMainPage::getAllActivities();
+     ControllerMainPage::getAllActivities();
 });
 
 get('/api/coaches', function(){
@@ -30,6 +30,15 @@ get('/api/locations', function(){
 
 put('/api/activities/$id', function($id){
     ControllerFormPage::updateActivity($id);
-})
+});
+
+post('/api/activities', function(){
+    ControllerFormPage::addActivity();
+});
+
+any('/404', function() {
+    http_response_code(404);
+    echo json_encode(["error" => "route not found"]);
+});
 
 ?>

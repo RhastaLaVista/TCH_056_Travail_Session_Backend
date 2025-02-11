@@ -12,7 +12,7 @@ get('/api/activities/random', function(){
     ControllerMainPage::getRandomActivities();
 });
 
-get('/api/activities', function(){
+get('/api/filtres', function(){
      ControllerMainPage::getAllActivities();
 });
 
@@ -25,7 +25,7 @@ get('/api/activities/$id', function($id){
 });
 
 get('/api/locations', function(){
-    ControllerFormPage::getAllLocations();
+    ControllerMainPage::getAllLocations();
 });
 
 put('/api/activities/$id', function($id){

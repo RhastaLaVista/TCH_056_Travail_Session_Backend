@@ -28,8 +28,12 @@ get('/api/locations', function(){
     ControllerFormPage::getAllLocations();
 });
 
+get('/api/activities/filter?coach=$coach&level=$level&location=$location&day=$day',function($coach, $day, $level, $location){
+    ControllerListPage::getFilteredActivities();
+});
+
 put('/api/activities/$id', function($id){
     ControllerFormPage::updateActivity($id);
-})
+});
 
 ?>

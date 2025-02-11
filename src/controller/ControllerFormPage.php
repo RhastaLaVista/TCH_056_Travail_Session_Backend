@@ -37,7 +37,7 @@ class ControllerFormPage {
             ':id' => $id
         ]);
 
-        echo json_encode(['success' => true, 'message' => 'Post-it mis à jour avec succès']);
+        echo json_encode(['success' => true, 'message' => 'Activité mise à jour avec succès']);
     }
 }
 

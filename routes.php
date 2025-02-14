@@ -12,12 +12,20 @@ get('/api/activities/random', function(){
     ControllerMainPage::getRandomActivities();
 });
 
-get('/api/filtres', function(){
-     ControllerMainPage::getAllActivities();
+get('/api/activities', function(){
+    ControllerMainPage::getAllActivities();
 });
 
 get('/api/coaches', function(){
     ControllerMainPage::getAllCoaches();
+});
+
+get('/api/levels', function(){
+    ControllerMainPage::getAllLevels();
+});
+
+get('/api/activities/filter', function($coach, $level, $location){
+    ControllerListPage::getFilteredActivities($coach, $level, $location);
 });
 
 get('/api/activities/$id', function($id){
@@ -28,9 +36,7 @@ get('/api/locations', function(){
     ControllerMainPage::getAllLocations();
 });
 
-get('/api/activities/filter?coach=$coach&level=$level&location=$location&day=$day',function($coach, $day, $level, $location){
-    ControllerListPage::getFilteredActivities();
-});
+
 
 put('/api/activities/$id', function($id){
     ControllerFormPage::updateActivity($id);

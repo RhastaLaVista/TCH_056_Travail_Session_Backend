@@ -81,7 +81,13 @@ class ControllerFormPage {
             ':id' => $id['id'] + 1
         ]);
 
-        echo json_encode(['success' => true, 'message' => 'Activité ajouté avec succès']);
+        try {
+            echo json_encode($pdo->query('SELECT * from activities ORDER BY id')->fetchALL());
+        }
+        catch(PDOException $e) {
+            http_response_code(500);
+            echo json_encode(['error' => $e->getMessage()]);
+        }
     }
 }
 

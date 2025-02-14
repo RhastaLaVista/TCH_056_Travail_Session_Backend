@@ -17,45 +17,34 @@ class ControllerListPage{
         }
     }
 
-   public static function GetFilteredActivities(){
+   public static function GetFilteredActivities($coach, $level, $location){
         global $pdo;
 
+        echo $coach;
+        echo $level;
+        echo $location;
+
         header('Access-Control-Allow-Origin: *');  
-        header('Content-Type: application/json; charset=utf-8'); 
+        header('Content-Type: application/json; charset=utf-8');
 
-        try{
-        $sqltxt = 'SELECT id, name, description, image, level, coach, schedule_day, location FROM activities WHERE 1=1';
+            $sql = $pdo->prepare('SELECT *
+            FROM activities a
+            JOIN coaches c ON a.coach_id = c.id
+            JOIN levels l ON a.level_id = l.id
+            JOIN locations loc ON a.location_id = loc.id
+            WHERE (c.name = :coach OR :coach IS NULL)
+            AND (l.name = :level OR :level IS NULL)
+            AND (loc.name = :location OR :location IS NULL')->fetchALL();
 
-        $coach = $_GET['coach'] ?? null;
-        $day = $_GET['schedule_day'] ?? null;
-        $intensity = $_GET[''] ?? null;
-        $location = $_GET['location'] ?? null;
+            $sql->execute([
+                ':coach' => $coach,
+                ':level' => $level,
+                ':location' => $location
+            ]
+            );
 
-        if(isset($coach)){
-            $sqltxt .= "AND coach =.'$coach'";
-        }
-
-        if(isset($day)){
-            $sqltxt .= "AND schedule_day =.'$day'"; 
-        }
-
-        if(isset($intensity)){
-            $sqltxt .= "AND level =.'$intensity'";
-        }
-
-        if(isset($location)){
-            $sqltxt .= "AND level =.'$location'";
-        }
-
-        $stmt = $pdo->query($sqltext);
-        $ActFilters = $stmt->fetchAll();
-        $echo json_encode($ActFilters);
-        
-        }
-        catch(PDOException $e) {
-            http_response_code(500);
-            echo json_encode(['error' => $e->getMessage()]);
-        }
+            echo json_encode(['success' => true, 'message' => 'Activité mis à jour avec succès']);
+            
 
 }
 }

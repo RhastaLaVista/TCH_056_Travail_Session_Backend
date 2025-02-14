@@ -9,12 +9,17 @@ class ControllerFormPage {
         header('Access-Control-Allow-Origin: *');  
         header('Content-Type: application/json; charset=utf-8');  
 
-        try {
-            echo json_encode($pdo->query("SELECT * FROM activities WHERE id = $id ")->fetchALL());
+        if(isset($id)){
+            try {
+                echo json_encode($pdo->query("SELECT * FROM activities WHERE id = $id ")->fetchALL());
+            }
+            catch(PDOException $e) {
+                http_response_code(500);
+                echo json_encode(['error' => $e->getMessage()]);
+            }
         }
-        catch(PDOException $e) {
-            http_response_code(500);
-            echo json_encode(['error' => $e->getMessage()]);
+        else {
+            echo json_encode(['error' => "There is no ID set for this activity"]);
         }
     }
                                                                                                                                                                                                                                                                                                                                                                                                                     
@@ -27,7 +32,7 @@ class ControllerFormPage {
         $data = json_decode(file_get_contents('php://input'), true);
 
         if($data['name'] == null || $data['description'] == null || $data['image'] == null || $data['level_id'] == null 
-        || $data['coach_id'] == null || $data['schedule_day'] == null || $data['schedule_time'] == null || $data['location_id'] == null)
+        || $data['coach_id'] == null || $data['schedule_day'] == null || $data['schedule_time'] == null || $data['location_id'] == null || !isset($id))
         {
             echo json_encode(['error' => 'Data not complete', 'message' => 'Please make sure that every field is filled']);
             return json_encode(['error' => 'Data not complete', 'message' => 'Please make sure that every field is filled']);

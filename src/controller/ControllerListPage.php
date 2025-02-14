@@ -19,11 +19,6 @@ class ControllerListPage{
 
    public static function GetFilteredActivities($coach, $level, $location){
         global $pdo;
-
-        echo $coach;
-        echo $level;
-        echo $location;
-
         header('Access-Control-Allow-Origin: *');  
         header('Content-Type: application/json; charset=utf-8');
 
